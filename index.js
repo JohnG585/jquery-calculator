@@ -2,35 +2,28 @@ $(document).ready(function() {
   'use strict';
 
   const screen = $('#screen');
-  let var1 = '';
-  let var2 = '';
-  let total = '';
-  let oper = '';
   let span = $('span');
-  total = 0;
+  let equals = $('#equals');
 
-  span.click(function() {
-// use event.target & specify "the" button
-// use .not() for :first child & :last-child;
-// setEventListener for Clear & equals
-  // let tex=$(event.target).text();
-    $('#clear').click(function() {
-      screen.text('');
-    });
-    if (!'span:[id="clear"]'|| !'span:[id="equals"]') {
-      screen.text();
+  $('#clear').click(function() {
+    screen.text('0');
+  });
+
+      $('div.buttons').click(('span:not([class="operator"])'),
+      function(event) {
+
+        let newStr = screen.text() + $(event.target).text();
+        console.log(newStr)
+        screen.text(newStr)
+      });
+
+    equals.click(function() {
+      try {
+      let result = eval(screen.text().replace(/x/, '*').replace(/÷/, '/'));
+      screen.text(result);
     }
-    if (oper === '+') {
-      total = var1 + var2;
-    }
-    else if (oper === '-') {
-      total = var1 - var2;
-    }
-    else if (oper === '*') {
-      total = var1 * var2;
-    }
-    else if (oper === '/') {
-      total = var1 / var2;
-    }
-  })
+      catch(e) {
+        screen.text('ERROR');
+      }
+    })
   })
